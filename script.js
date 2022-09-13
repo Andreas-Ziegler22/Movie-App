@@ -4,6 +4,9 @@ const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 const SEARCH_API =
   'https://api.themoviedb.org/3/search/movie?api_key=8aef7b59166b5d1a199fbb7a4302589f&query="';
 
+const form = document.getElementById("form");
+const search = document.getElementById("search");
+
 getMovies(API_URL);
 
 async function getMovies(url) {
@@ -12,3 +15,16 @@ async function getMovies(url) {
 
   console.log(data.results);
 }
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const searchTerm = search.value;
+
+  if (searchTerm && searchTerm !== "") {
+    getMovies(SEARCH_API + searchTerm);
+    search.value = "";
+  } else {
+    window.location.reload();
+  }
+});
